@@ -1,0 +1,15 @@
+[package]
+name = "pegasus"
+version = "0.1.0"
+authors = ["alanhkarp <alanhkarp@gmail.com>"]
+edition = "2018"
+
+[features]
+simulator = []
+webserver = []
+api-old = []
+api-new = []
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
