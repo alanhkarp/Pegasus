@@ -2,28 +2,48 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Pegaus build",
+			"label": "Live build",
 			"type": "cargo",
 			"command": "build",
-			"args": ["--bin", 
-				"app_agent"],
+			"args": [
+				"--bin",
+				"live"
+			],
 			"problemMatcher": [
 				"$rustc"
 			],
-			"dependsOn": ["Pegasus format"],
+			"group": "build",
+		},
+		{
+			"label": "Pegaus build",
+			"type": "cargo",
+			"command": "build",
+			"args": [
+				"--bin",
+				"app_agent"
+			],
+			"problemMatcher": [
+				"$rustc"
+			],
+			"dependsOn": [
+				"Pegasus format"
+			],
 			"group": "build",
 		},
 		{
 			"label": "Pegaus check",
 			"type": "cargo",
 			"command": "check",
-			"args": ["--bin", 
+			"args": [
+				"--bin",
 				"app_agent"
 			],
 			"problemMatcher": [
 				"$rustc"
 			],
-			"dependsOn": ["Pegasus format"],
+			"dependsOn": [
+				"Pegasus format"
+			],
 			"group": "build",
 		},
 		{
@@ -39,20 +59,25 @@
 			"label": "Pegaus run",
 			"type": "cargo",
 			"command": "run",
-			"args": ["--bin",
+			"args": [
+				"--bin",
 				"app_agent"
 			],
 			"problemMatcher": [
 				"$rustc"
 			],
-			"dependsOn": ["Pegasus format", "Client build"],
+			"dependsOn": [
+				"Pegasus format",
+				"Client build"
+			],
 			"group": "build",
 		},
 		{
 			"label": "Pegaus run Docker",
 			"type": "cargo",
 			"command": "run",
-			"args": ["--bin",
+			"args": [
+				"--bin",
 				"app_agent",
 				"--features",
 				"docker"
@@ -60,14 +85,18 @@
 			"problemMatcher": [
 				"$rustc"
 			],
-			"dependsOn": ["Pegasus format", "Client build container"],
+			"dependsOn": [
+				"Pegasus format",
+				"Client build container"
+			],
 			"group": "build",
 		},
 		{
 			"label": "Pegaus doc",
 			"type": "cargo",
 			"command": "doc",
-			"args": ["--bin", 
+			"args": [
+				"--bin",
 				"app_agent"
 			],
 			"problemMatcher": [
@@ -80,7 +109,7 @@
 			"type": "cargo",
 			"command": "test",
 			"args": [
-				"--bin", 
+				"--bin",
 				"app_agent",
 			],
 			"problemMatcher": [
@@ -93,9 +122,9 @@
 			"type": "cargo",
 			"command": "build",
 			"args": [
-				"--bin", 
+				"--bin",
 				"client",
-				"--target", 
+				"--target",
 				"x86_64-unknown-linux-musl",
 				"--features",
 				"docker"
@@ -110,7 +139,7 @@
 			"type": "cargo",
 			"command": "check",
 			"args": [
-				"--bin", 
+				"--bin",
 				"client"
 			],
 			"problemMatcher": [
@@ -122,8 +151,9 @@
 			"label": "Client run",
 			"type": "cargo",
 			"command": "run",
-			"args": ["--bin", 
-				"client", 
+			"args": [
+				"--bin",
+				"client",
 				"foobar"
 			],
 			"problemMatcher": [
@@ -135,7 +165,8 @@
 			"label": "Client build",
 			"type": "cargo",
 			"command": "build",
-			"args": ["--bin", 
+			"args": [
+				"--bin",
 				"client"
 			],
 			"problemMatcher": [
@@ -147,8 +178,10 @@
 			"label": "Client doc",
 			"type": "cargo",
 			"command": "doc",
-			"args": ["--bin",
-				"client"],
+			"args": [
+				"--bin",
+				"client"
+			],
 			"problemMatcher": [
 				"$rustc"
 			],
@@ -158,8 +191,10 @@
 			"label": "Client test",
 			"type": "cargo",
 			"command": "test",
-			"args": ["--bin", 
-				"client"],
+			"args": [
+				"--bin",
+				"client"
+			],
 			"problemMatcher": [
 				"$rustc"
 			],

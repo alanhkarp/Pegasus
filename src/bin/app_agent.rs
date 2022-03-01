@@ -23,13 +23,13 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let command = "target/debug/client";
     println!("\nServer: client command: {}", command);
     let tests = vec![
-        CommTests::AsyncMutex,
-        CommTests::FuturesUnordered,
-        CommTests::MpscChannel,
-        CommTests::SelectChannel,
-        CommTests::SelectTokio,
-        CommTests::Sync,
-        CommTests::TokioSpawn,
+        // CommTests::AsyncMutex,
+        // CommTests::FuturesUnordered,
+        // CommTests::MpscChannel,
+        // CommTests::SelectChannel,
+        // CommTests::SelectTokio,
+        // CommTests::Sync,
+        // CommTests::TokioSpawn,
         CommTests::UnixSelect,
     ];
     CommTests::run_comm_tests(command, &tests).await?;

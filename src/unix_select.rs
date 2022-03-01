@@ -2,8 +2,9 @@ use crate::comm_tests::random_sleep;
 use crate::command_std::start_client;
 use crate::data::Data;
 use nix::sys::select::{select, FdSet};
+use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
-use std::os::unix::io::{AsRawFd, RawFd};
+use std::os::unix::io::{AsRawFd, FromRawFd, RawFd};
 use std::process::{self, Child};
 // Read in threads, send to main thread, use crossbeam select
 pub fn main_unix_select(command: &str) -> Result<(), Box<dyn std::error::Error>> {
@@ -52,9 +53,6 @@ pub fn talk_to_clients(
     println!("Server reading from clients");
     let mut count = 0;
     while count < 2 {
-        let mut fdset_clone = fdset.clone();
-        let mut fds = fdset_clone.fds(None);
-        println!("FdSet before {:?} {:?}", fds.next(), fds.next());
         random_sleep("Server", std::process::id());
         match select(None, &mut fdset, None, None, None) {
             Ok(__) => (),
@@ -63,20 +61,15 @@ pub fn talk_to_clients(
                 continue;
             }
         }
-        let mut fdset_clone = fdset.clone();
-        let mut fds = fdset_clone.fds(None);
-        println!("FdSet after {:?} {:?}", fds.next(), fds.next());
         for fd_raw in fdset.fds(None) {
-            let (which, client_pid, mut reader) = if fd_raw == raw_fd1 {
-                let from_client1 = client1.stdout.as_mut().expect("Cannot get client 1 stdout");
-                let reader = BufReader::new(from_client1).lines();
-                (1, client1_pid, reader)
+            let fd = unsafe { File::from_raw_fd(fd_raw) };
+            let (which, client_pid) = if fd_raw == raw_fd1 {
+                (1, client1_pid)
             } else {
-                let from_client2 = client2.stdout.as_mut().expect("Cannot get client 2 stdout");
-                let reader = BufReader::new(from_client2).lines();
-                (2, client2_pid, reader)
+                (2, client2_pid)
             };
             println!("Server reading from client {}", which);
+            let mut reader = BufReader::new(fd).lines();
             let msg = reader.next();
             if msg.is_some() {
                 count = count + 1;

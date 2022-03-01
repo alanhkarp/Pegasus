@@ -12,7 +12,7 @@ use std::os::unix::prelude::FromRawFd;
 pub fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<_> = std::env::args().collect();
     let id = args.get(1).expect("Client: no id");
-    eprintln!("  Client {} Start with pid {}", id, std::process::id());
+    eprintln!("  Client {} Start", id);
     talk_to_server(&id)?;
     eprintln!("  Client {} Exit", id);
     Ok(())
@@ -32,6 +32,7 @@ fn talk_to_server(id: &str) -> Result<(), std::io::Error> {
         line.trim_end_matches("\n")
     );
     to_server.write_all(&format!("Client {} got {}\n", id, line).as_bytes())?;
+    to_server.flush()?;
     Ok(())
 }
 // From a failed attempt to pass file handles of pipes to another process

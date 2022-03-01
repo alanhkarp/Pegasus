@@ -21,7 +21,8 @@
         "check",
         "--bin",
         "app_agent",
-        "--features", "docker",
+        "--features",
+        "docker",
         "--message-format=json"
     ],
     "rust-analyzer.callInfo.full": false,
@@ -53,11 +54,11 @@
         "rust_analyzer.inlayHints.foreground": "#9C9C9C",
     },
     "workbench.editor.wrapTabs": false,
-    "todo-tree.tree.showScanModeButton": false,
+    //"todo-tree.tree.showScanModeButton": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "errorLens.onSave": true,
-    "errorLens.exclude": [
-        "Unnecessary braces in use statement"
-    ],
     "window.zoomLevel": 1,
+    //"errorLens.infoColor": "#666666",
+    //"errorLens.errorColor": "#666666",
+    //"errorLens.hintColor": "#666666",
+    //"errorLens.warningColor": "#9C9C9C",
 }
